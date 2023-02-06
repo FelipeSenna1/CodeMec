@@ -187,11 +187,11 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
     
       diametroBase: {
           coroa: () => {
-                let total = (DiaPrimitivo1_dentes.innerHTML * Math.cos(angulo_dentes.value)).toFixed(2) 
+                let total = (DiaPrimitivo1_dentes.innerHTML * angulo_dentes.value).toFixed(2) 
                 return total
             },
-          pinhao: () => {
-                let total = (DiaPrimitivo2_dentes.innerHTML * Math.cos(angulo_dentes.value)).toFixed(2) 
+            pinhao: () => {
+                let total = (DiaPrimitivo2_dentes.innerHTML * 2).toFixed(2) 
                 return total
             }
       },
@@ -239,7 +239,7 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
       },
     
       corpoRoda: () => {
-          let total = (CompDente_dentes.innerHTML * 0.6).toFixed(2)
+          let total = (formulas.Dentes.comprimentoDente() * 0.6).toFixed(2)
           return total
       },
     
@@ -457,6 +457,7 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
     G_dentes.innerHTML = formulas.Dentes.reforco()
 
     CompRoda_dentes.innerHTML = formulas.Dentes.corpoRoda()
+    console.log(formulas.Dentes.corpoRoda())
 
     CompDente_dentes.innerHTML = formulas.Dentes.comprimentoDente()
 
