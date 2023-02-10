@@ -133,6 +133,9 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
   reg_semfim = document.getElementById("reg"),
   I_semfim = document.getElementById("I"),
   rig_semfim = document.getElementById("rig");
+  
+
+  let resulatdo_dentes = document.getElementById("resultadoDentes")
 
   let statusDentes = document.getElementById("statusDentes")
   let statusConica = document.getElementById("statusConica")
@@ -191,7 +194,7 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
                 return total
             },
             pinhao: () => {
-                let total = (DiaPrimitivo2_dentes.innerHTML * 2).toFixed(2) 
+                let total = (DiaPrimitivo2_dentes.innerHTML * angulo_dentes.value).toFixed(2) 
                 return total
             }
       },
@@ -263,9 +266,12 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
       diametroExterno: {
           coroa: () => {
            total =  (parseInt(Dp1.innerHTML) + (2 * modulo_conica.value * Math.cos(B_conica.innerHTML * (Math.PI/180)))).toFixed(2)
-            return 12
+            return total
          },
-          pinhao: () => {  De2.innerHTML = (parseInt(Dp2.innerHTML) + (2 * modulo_conica.value * Math.cos(B_conica.innerHTML * (Math.PI/180)))).toFixed(2) }
+          pinhao: () => {  
+            total = (parseInt(Dp2.innerHTML) + (2 * modulo_conica.value * Math.cos(B_conica.innerHTML * (Math.PI/180)))).toFixed(2)
+            return total  
+         }
       },
     
       diametroPrimitivo: {
@@ -422,7 +428,7 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
 
       t: () => { t_semfim.innerHTML=(( D2_semfim.value/4) / 2).toFixed(2) },
 
-  }
+    }
   }
 
   //Calcular
@@ -430,47 +436,123 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
 
     if((N1_dentes.value != "") && (N2_dentes.value != "") && (D1_dentes.value != "") && (D2_dentes.value != "") && (modulo_dentes.value != "") && (angulo_dentes.value != "")){
 
-    DiaExterno1_dentes.innerHTML = formulas.Dentes.diametroExterno.coroa()
-    DiaExterno2_dentes.innerHTML = formulas.Dentes.diametroExterno.pinhao()
+        resulatdo_dentes.innerHTML = `
+            <table>
+                    <tbody>
+                        <tr>
+                            <td>FORMULAS</td>
+                            <td>COROA</td>
+                            <td>PINHÃO</td>
+                        </tr>
 
-    DiaPrimitivo1_dentes.innerHTML = formulas.Dentes.diametroPrimitivo.coroa()
-    DiaPrimitivo2_dentes.innerHTML = formulas.Dentes.diametroPrimitivo.pinhao()
+                        <tr>
+                            <td>Diametro externo :</td>
+                            <td > <span id="de1_dentes">${(modulo_dentes.value * (Number(N1_dentes.value) + 2)).toFixed(2)}</span> mm </td>
+                            <td > <span id="de2_dentes">${(modulo_dentes.value * (Number(N2_dentes.value) + 2)).toFixed(2)}</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Diametro primitivo :</td>
+                            <td > <span id="dp1_dentes">0</span> mm </td>
+                            <td > <span id="dp2_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Diametro interno :</td>
+                            <td > <span id="di1_dentes">0</span> mm </td>
+                            <td > <span id="di2_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Diametro de base :</td>
+                            <td > <span id="dbase1_dentes">0</span> mm </td>
+                            <td > <span id="dbase2_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Diametro do cubo :</td>
+                            <td > <span id="dc1_dentes">0</span> mm </td>
+                            <td > <span id="dc2_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Comprimento do cubo :</td>
+                            <td > <span id="cc1_dentes">0</span> mm </td>
+                            <td > <span id="cc2_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td><hr></td>
+                            <td><hr></td>
+                            <td><hr></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Folga no pé do dente :</td>
+                            <td > <span id="fd_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Altura do dente:</td>
+                            <td > <span id="ad_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>G :</td>
+                            <td > <span id="g_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Comprimento do Dente :</td>
+                            <td > <span id="cd_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Corpo da Roda :</td>
+                            <td > <span id="cr_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Distancia entre Centros :</td>
+                            <td > <span id="dec_dentes">0</span> mm </td>
+                        </tr>
+                        <tr>
+                            <td>Espessura :</td> 
+                            <td > <span id="exp_dentes">0</span> mm </td>
+                        </tr>
+                    </tbody>
+                </table>
+        `
 
-    DiaInterno1_dentes.innerHTML = formulas.Dentes.diametroInterno.coroa()
-    DiaInterno2_dentes.innerHTML = formulas.Dentes.diametroInterno.pinhao()
+        // DiaExterno1_dentes.innerHTML = formulas.Dentes.diametroExterno.coroa()
+        // DiaExterno2_dentes.innerHTML = formulas.Dentes.diametroExterno.pinhao()
 
-    DiaBase1_dentes.innerHTML = formulas.Dentes.diametroBase.coroa()
-    DiaBase2_dentes.innerHTML = formulas.Dentes.diametroBase.pinhao()
+        // DiaPrimitivo1_dentes.innerHTML = formulas.Dentes.diametroPrimitivo.coroa()
+        // DiaPrimitivo2_dentes.innerHTML = formulas.Dentes.diametroPrimitivo.pinhao()
 
-    CompCubo1_dentes.innerHTML = formulas.Dentes.diametroCubo.coroa()
-    CompCubo2_dentes.innerHTML = formulas.Dentes.diametroCubo.pinhao()
+        // DiaInterno1_dentes.innerHTML = formulas.Dentes.diametroInterno.coroa()
+        // DiaInterno2_dentes.innerHTML = formulas.Dentes.diametroInterno.pinhao()
 
-    DiaCubo1_dentes.innerHTML = formulas.Dentes.comprimentoCubo.coroa()
-    DiaCubo2_dentes.innerHTML = formulas.Dentes.comprimentoCubo.pinhao()
+        // DiaBase1_dentes.innerHTML = formulas.Dentes.diametroBase.coroa()
+        // DiaBase2_dentes.innerHTML = formulas.Dentes.diametroBase.pinhao()
 
-    FolgaDente_dentes.innerHTML = formulas.Dentes.folgaDente()
-    
-    DisCentros_dentes.innerHTML = formulas.Dentes.distanciaCentros()
+        // CompCubo1_dentes.innerHTML = formulas.Dentes.diametroCubo.coroa()
+        // CompCubo2_dentes.innerHTML = formulas.Dentes.diametroCubo.pinhao()
 
-    Passo_dentes.innerHTML = formulas.Dentes.passo()
+        // DiaCubo1_dentes.innerHTML = formulas.Dentes.comprimentoCubo.coroa()
+        // DiaCubo2_dentes.innerHTML = formulas.Dentes.comprimentoCubo.pinhao()
 
-    G_dentes.innerHTML = formulas.Dentes.reforco()
-
-    CompRoda_dentes.innerHTML = formulas.Dentes.corpoRoda()
-    console.log(formulas.Dentes.corpoRoda())
-
-    CompDente_dentes.innerHTML = formulas.Dentes.comprimentoDente()
-
-    AlturaDente_dentes.innerHTML = formulas.Dentes.alturaDente()
-
-    Expessura_dentes.innerHTML = formulas.Dentes.expessura()
-
+        // FolgaDente_dentes.innerHTML = formulas.Dentes.folgaDente()
         
-    statusDentes.style.display = 'inline-block'
-    
-}else{
-    mensagem()
-}
+        // DisCentros_dentes.innerHTML = formulas.Dentes.distanciaCentros()
+
+        // Passo_dentes.innerHTML = formulas.Dentes.passo()
+
+        // G_dentes.innerHTML = formulas.Dentes.reforco()
+
+        // CompRoda_dentes.innerHTML = formulas.Dentes.corpoRoda()
+
+        // CompDente_dentes.innerHTML = formulas.Dentes.comprimentoDente()
+
+        // AlturaDente_dentes.innerHTML = formulas.Dentes.alturaDente()
+
+        // Expessura_dentes.innerHTML = formulas.Dentes.expessura()
+
+            
+        statusDentes.style.display = 'inline-block'
+            
+    }else{
+        mensagem()
+    }
 }
 
   function calculoConica(){
@@ -478,7 +560,7 @@ let DiaPrimitivo1_conica = document.getElementById("Dp1"),
     if((N1_conica.value != "") && (N2_conica.value != "") && (D1_conica.value != "") && (D2_conica.value != "") && (modulo_conica.value != "")) {
 
       De1.innerHTML = formulas.Conica.diametroExterno.coroa()
-      formulas.Conica.diametroExterno.pinhao()
+      De2.innerHTML = formulas.Conica.diametroExterno.pinhao()
   
 
       formulas.Conica.diametroPrimitivo.coroa()

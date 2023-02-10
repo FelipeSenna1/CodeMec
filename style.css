@@ -78,7 +78,8 @@ fieldset{
   .containerSubcard{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 1em;
     flex-wrap: wrap;
   }
   .card{
