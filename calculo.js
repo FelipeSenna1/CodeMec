@@ -48,53 +48,38 @@
 
         if((N1_dentes.value != "") && (N2_dentes.value != "") && (D1_dentes.value != "") && (D2_dentes.value != "") && (modulo_dentes.value != "") && (angulo_dentes.value != "")){
 
-            const Dentes = {
-                diametroExterno: {
-                    coroa: (modulo_dentes.value * (Number(N1_dentes.value) + 2)).toFixed(2),
-                    pinhao: (modulo_dentes.value * (Number(N2_dentes.value) + 2)).toFixed(2)
-                },
-                
-                diametroPrimitivo: {
-                    coroa: (modulo_dentes.value * N1_dentes.value).toFixed(2),
-                    pinhao: (modulo_dentes.value * N2_dentes.value).toFixed(2) 
-                },
+          const diametroExternoCoroa =  (modulo_dentes.value * (Number(N1_dentes.value) + 2)).toFixed(2)
+          const diametroExternoPinhao = (modulo_dentes.value * (Number(N2_dentes.value) + 2)).toFixed(2)
 
-                diametroInterno: {
-                    coroa: (DiaExterno1_dentes.innerHTML - (2 * (2.16 * modulo_dentes.value))).toFixed(2),
-                    pinhao: (DiaExterno2_dentes.innerHTML - (2 * (2.16 * modulo_dentes.value))).toFixed(2) 
-                },
+          const diametroPrimitivoCoroa = (modulo_dentes.value * N1_dentes.value).toFixed(2)
+          const diametroPrimitivoPinhao = (modulo_dentes.value * N2_dentes.value).toFixed(2) 
 
-                diametroBase: {
-                    coroa: (DiaPrimitivo1_dentes.innerHTML * angulo_dentes.value).toFixed(2),
-                    pinhao: (DiaPrimitivo2_dentes.innerHTML * angulo_dentes.value).toFixed(2) 
-                },
+          const diametroInternoCoroa = (diametroExternoCoroa - (2 * (2.16 * modulo_dentes.value))).toFixed(2)
+          const diametroInternoPinhao = (diametroExternoPinhao - (2 * (2.16 * modulo_dentes.value))).toFixed(2) 
 
-                comprimentoCubo: {
-                    coroa: (2 * D1_dentes.value).toFixed(2),
-                    pinhao: (2 * D2_dentes.value).toFixed(2)
-                }, 
+          const deg = Math.cos(angulo_dentes.value * (Math.PI / 180))
+          const diametroBaseCoroa = (diametroPrimitivoCoroa * deg).toFixed(2)
+          const diametroBasePinhao = (diametroPrimitivoPinhao * deg).toFixed(2) 
 
-                diametroCubo: {
-                    coroa: (2 * D1_dentes.value).toFixed(2),
-                    pinhao: (2 * D2_dentes.value).toFixed(2) 
-                },
-                
-                folgaDente: (0.16 * modulo_dentes.value).toFixed(2),
+          const comprimentoDiametroCuboCoroa = (2 * D1_dentes.value).toFixed(2)
+          const comprimentoDiametroCuboPinhao = (2 * D2_dentes.value).toFixed(2)
 
-                distanciaCentros: ((modulo_dentes.value * (Number(N1_dentes.value) + Number(N2_dentes.value))) / 2).toFixed(2),
+          const folgaDente = (0.16 * modulo_dentes.value).toFixed(2)
 
-                passo: (modulo_dentes.value * Math.PI).toFixed(2),
+          const distanciaCentros = ((modulo_dentes.value * (Number(N1_dentes.value) + Number(N2_dentes.value))) / 2).toFixed(2)
+
+          const passo = (modulo_dentes.value * Math.PI).toFixed(2)
+
+          const reforco = (passo/2).toFixed(2)
+
+          const comprimentoDente = (8 * modulo_dentes.value).toFixed(2)
+
+          const corpoRoda = (comprimentoDente * 0.6).toFixed(2)
+
+          const alturaDente = (2.16 * modulo_dentes.value).toFixed(2)
+
+          const espessura = (passo / 2).toFixed(2)
             
-                reforco: (Passo_dentes.innerHTML/2).toFixed(2),
-            
-                corpoRoda: (formulas.Dentes.comprimentoDente() * 0.6).toFixed(2),
-            
-                comprimentoDente: (8 * modulo_dentes.value).toFixed(2),
-            
-                alturaDente: (2.16 * modulo_dentes.value).toFixed(2),
-        
-                expessura: (Passo_dentes.innerHTML / 2).toFixed(2),
-            }
             
             resultado_dentes.innerHTML = `
                 <table>
@@ -107,33 +92,33 @@
 
                             <tr>
                                 <td>Diametro externo :</td>
-                                <td > ${Dentes.diametroExterno.coroa} mm </td>
-                                <td > ${Dentes.diametroExterno.pinhao} mm </td>
+                                <td > ${diametroExternoCoroa} mm </td>
+                                <td > ${diametroExternoPinhao} mm </td>
                             </tr>
                             <tr>
                                 <td>Diametro primitivo :</td>
-                                <td > ${Dentes.diametroPrimitivo.coroa} mm </td>
-                                <td > ${Dentes.diametroPrimitivo.pinhao} mm </td>
+                                <td > ${diametroPrimitivoCoroa} mm </td>
+                                <td > ${diametroPrimitivoPinhao} mm </td>
                             </tr>
                             <tr>
                                 <td>Diametro interno :</td>
-                                <td > ${Dentes.diametroInterno.coroa} mm </td>
-                                <td > ${Dentes.comprimentoCubo} mm </td>
+                                <td > ${diametroInternoCoroa} mm </td>
+                                <td > ${diametroInternoPinhao} mm </td>
                             </tr>
                             <tr>
                                 <td>Diametro de base :</td>
-                                <td > ${Dentes.diametroBase.coroa} mm </td>
-                                <td > ${Dentes.diametroBase.pinhao} mm </td>
+                                <td > ${diametroBaseCoroa} mm </td>
+                                <td > ${diametroBasePinhao} mm </td>
                             </tr>
                             <tr>
                                 <td>Diametro do cubo :</td>
-                                <td > ${Dentes.diametroCubo.coroa} mm </td>
-                                <td > ${Dentes.diametroCubo.pinhao} mm </td>
+                                <td > ${comprimentoDiametroCuboCoroa} mm </td>
+                                <td > ${comprimentoDiametroCuboPinhao} mm </td>
                             </tr>
                             <tr>
                                 <td>Comprimento do cubo :</td>
-                                <td > ${Dentes.comprimentoCubo.coroa} mm </td>
-                                <td > ${Dentes.comprimentoCubo.pinhao} mm </td>
+                                <td > ${comprimentoDiametroCuboCoroa} mm </td>
+                                <td > ${comprimentoDiametroCuboPinhao} mm </td>
                             </tr>
                             <tr>
                                 <td><hr></td>
@@ -143,35 +128,37 @@
                             
                             <tr>
                                 <td>Folga no pé do dente :</td>
-                                <td > ${Dentes.folgaDente} mm </td>
+                                <td > ${folgaDente} mm </td>
                             </tr>
                             <tr>
                                 <td>Altura do dente:</td>
-                                <td > ${Dentes.alturaDente} mm </td>
+                                <td > ${alturaDente} mm </td>
                             </tr>
                             <tr>
                                 <td>Reforço (G) :</td>
-                                <td > ${Dentes.reforco} mm </td>
+                                <td > ${reforco} mm </td>
                             </tr>
                             <tr>
                                 <td>Comprimento do Dente :</td>
-                                <td > ${Dentes.comprimentoDente} mm </td>
+                                <td > ${comprimentoDente} mm </td>
                             </tr>
                             <tr>
                                 <td>Corpo da Roda :</td>
+                                <td > ${corpoRoda} mm </td>
                             </tr>
-                                <td > ${Dentes.corpoRoda} mm </td>
                             <tr>
                                 <td>Distancia entre Centros :</td>
-                                <td > ${Dentes.distanciaCentros} mm </td>
+                                <td > ${distanciaCentros} mm </td>
                             </tr>
                             <tr>
                                 <td>Espessura :</td> 
-                                <td > ${Dentes.expessura} mm </td>
+                                <td > ${espessura} mm </td>
                             </tr>
                         </tbody>
                     </table>
             `
+
+            console.log(diametroExternoCoroa);
     
             statusDentes.style.display = 'inline-block'
                 
@@ -184,170 +171,59 @@
 
     if((N1_conica.value != "") && (N2_conica.value != "") && (D1_conica.value != "") && (D2_conica.value != "") && (modulo_conica.value != "")) {
 
+      const divisao = parseInt(N1_conica.value) / parseInt(N2_conica.value)
+      // const rad = Math.atan(divisao)
+      const deg = Math.atan(divisao) * (180 / Math.PI)
+      const angB = deg.toFixed(2)
 
-         const Conica = {
-           diametroExterno: {
-             coroa: () => {
-               total = (
-                 parseInt(Dp1.innerHTML) +
-                 2 *
-                   modulo_conica.value *
-                   Math.cos(B_conica.innerHTML * (Math.PI / 180))
-               ).toFixed(2)
-               return total
-             },
-             pinhao: () => {
-               total = (
-                 parseInt(Dp2.innerHTML) +
-                 2 *
-                   modulo_conica.value *
-                   Math.cos(B_conica.innerHTML * (Math.PI / 180))
-               ).toFixed(2)
-               return total
-             },
-           },
+      const diametroPrimitivoCoroa = (N1_conica.value * modulo_conica.value).toFixed(2)
+      const diametroPrimitivoPinhao = (N2_conica.value * modulo_conica.value).toFixed(2)
 
-           diametroPrimitivo: {
-             coroa: () => {
-               DiaPrimitivo1_conica.innerHTML = (
-                 N1_conica.value * modulo_conica.value
-               ).toFixed(2)
-             },
-             pinhao: () => {
-               DiaPrimitivo2_conica.innerHTML = (
-                 N2_conica.value * modulo_conica.value
-               ).toFixed(2)
-             },
-           },
+      const diametroExternoCoroa = (parseInt(diametroPrimitivoCoroa) + 2 * modulo_conica.value * Math.cos(angB * (Math.PI / 180))).toFixed(2)
+      const diametroExternoPinhao = (parseInt(diametroPrimitivoPinhao) + 2 * modulo_conica.value * Math.cos(angB * (Math.PI / 180))).toFixed(2)
+      
+      const diametroCuboCoroa = (2 * D1_conica.value).toFixed(2)
+      const diametroCuboPinhao = (2 * D2_conica.value).toFixed(2)
+      
+      const comprimentoCuboCoroa = (1.5 * D1_conica.value).toFixed(2)
+      const comprimentoCuboPinhao = (1.5 * D2_conica.value).toFixed(2)
 
-           diametroCubo: {
-             coroa: () => {
-               DiaCubo1_conica.innerHTML = (2 * D1_conica.value).toFixed(2)
-             },
-             pinhao: () => {
-               DiaCubo2_conica.innerHTML = (2 * D2_conica.value).toFixed(2)
-             },
-           },
+      const gCoroa = ((diametroPrimitivoCoroa / 2) * Math.sin(angB * (Math.PI / 180))).toFixed(2)
+      const gPinhao = ((diametroPrimitivoPinhao / 2) * Math.sin(angB * (Math.PI / 180))).toFixed(2)
+      
+      const tgY1 = (modulo_conica.value / gCoroa).toFixed(2)
+      const Y1 = Math.atan(tgY1) * (180 / Math.PI)
+      const angYCoroa = Y1.toFixed(2)
 
-           comprimentoCubo: {
-             coroa: () => {
-               CompCubo1_conica.innerHTML = (1.5 * D1_conica.value).toFixed(2)
-             },
-             pinhao: () => {
-               CompCubo2_conica.innerHTML = (1.5 * D2_conica.value).toFixed(2)
-             },
-           },
+      const tgY2 = (modulo_conica.value / gPinhao).toFixed(2)
+      const Y2 = Math.atan(tgY2) * (180 / Math.PI)
+      const angYPinhao = Y2.toFixed(2)
 
-           Y: {
-             coroa: () => {
-               const tgY1 = (modulo_conica.value / G1_conica.innerHTML).toFixed(
-                 2
-               )
-               Y = Math.atan(tgY1) * (180 / Math.PI)
+      const aCoroa = (parseInt(angYCoroa) + parseInt(angB)).toFixed(2)
+      const aPinhao = (parseInt(angYPinhao) + parseInt(angB)).toFixed(2)
 
-               Y1_conica.innerHTML = Y.toFixed(2)
-             },
+      const lCoroa = (gCoroa / 3).toFixed(2)
+      const lPinhao = (gPinhao / 3).toFixed(2)
+      
+      const chavetaA = (0.25 * D1_conica.value).toFixed(2)
+      const chavetaB = (0.25 * D2_conica.value).toFixed(2)
+    
+      const tgZ1 = (7 * modulo_conica.value) / (6 * gCoroa)
+      const Z1 = Math.atan(tgZ1) * (180 / Math.PI)
+      const angZ = Z1.toFixed(2)
+      
+      const C = (parseInt(angB) - parseInt(angZ)).toFixed(2)
+      
+      const D = (90 - angB).toFixed(2)
+      
+      const H = (2.166 * modulo_conica.value).toFixed(2)
+      
+      const F = (0.167 * modulo_conica.value).toFixed(2)
+      
+      const W = (2.166 * modulo_conica.value * 1.25).toFixed(2)
+      
+      const E = (1.57 * modulo_conica.value).toFixed(2)
 
-             pinhao: () => {
-               const tgY2 = modulo_conica.value / G2_conica.innerHTML
-               Ys = Math.atan(tgY2) * (180 / Math.PI)
-
-               Y2_conica.innerHTML = Ys.toFixed(2)
-             },
-           },
-
-           A: {
-             coroa: () => {
-               A1_conica.innerHTML = (
-                 parseInt(Y1_conica.innerHTML) + parseInt(B_conica.innerHTML)
-               ).toFixed(2)
-             },
-             pinhao: () => {
-               A2_conica.innerHTML = (
-                 parseInt(Y2_conica.innerHTML) + parseInt(B_conica.innerHTML)
-               ).toFixed(2)
-             },
-           },
-
-           G: {
-             coroa: () => {
-               G1_conica.innerHTML = (
-                 (DiaPrimitivo2_conica.innerHTML / 2) *
-                 Math.sin(B_conica.innerHTML * (Math.PI / 180))
-               ).toFixed(2)
-             },
-             pinhao: () => {
-               G2_conica.innerHTML = (
-                 (DiaPrimitivo2_conica.innerHTML / 2) *
-                 Math.sin(B_conica.innerHTML * (Math.PI / 180))
-               ).toFixed(2)
-             },
-           },
-
-           L: {
-             coroa: () => {
-               L1_conica.innerHTML = (G1_conica.innerHTML / 3).toFixed(2)
-             },
-             pinhao: () => {
-               L2_conica.innerHTML = (G2_conica.innerHTML / 3).toFixed(2)
-             },
-           },
-
-           chaveta: {
-             coroa: () => {
-               b1_conica.innerHTML = (0.25 * D1_conica.value).toFixed(2)
-             },
-             pinhao: () => {
-               b2_conica.innerHTML = (0.25 * D2_conica.value).toFixed(2)
-             },
-           },
-
-           B: () => {
-             const divisao =
-               parseInt(N1_conica.value) / parseInt(N2_conica.value)
-             rad = Math.atan(divisao)
-             deg = Math.atan(divisao) * (180 / Math.PI)
-
-             B_conica.innerHTML = deg.toFixed(2)
-           },
-
-           Z: () => {
-             const tgZ1 = (7 * modulo_conica.value) / (6 * G1_conica.innerHTML)
-             Z1 = Math.atan(tgZ1) * (180 / Math.PI)
-
-             Z_conica.innerHTML = Z1.toFixed(2)
-           },
-
-           C: () => {
-             C_conica.innerHTML = (
-               parseInt(B_conica.innerHTML) - parseInt(Z_conica.innerHTML)
-             ).toFixed(2)
-           },
-
-           D: () => {
-             D_conica.innerHTML = (90 - B_conica.innerHTML).toFixed(2)
-           },
-
-           H: () => {
-             H_conica.innerHTML = (2.166 * modulo_conica.value).toFixed(2)
-           },
-
-           F: () => {
-             FolgaDente_conica.innerHTML = (
-               0.167 * modulo_conica.value
-             ).toFixed(2)
-           },
-
-           W: () => {
-             W_conica.innerHTML = (2.166 * modulo_conica.value * 1.25).toFixed(
-               2
-             )
-           },
-
-           E: () => {
-             E_conica.innerHTML = (1.57 * modulo_conica.value).toFixed(2)
-           },
-         }
 
         resultado_conica.innerHTML = `
             <table>
@@ -360,102 +236,102 @@
             
                         <tr>
                             <td> Diametro Primitivo </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${diametroPrimitivoCoroa} mm </td>
+                            <td > ${diametroPrimitivoPinhao} mm </td>
                         </tr>
             
                         <tr>
                             <td> Diametro Externo </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${diametroExternoCoroa} mm </td>
+                            <td > ${diametroExternoPinhao} mm </td>
                         </tr>
 
                         <tr>
                             <td> Diametro do Cubo </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${diametroCuboCoroa} mm </td>
+                            <td > ${diametroCuboPinhao} mm </td>
                         </tr>
 
                         <tr>
                             <td> Comprimento do Cubo </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${comprimentoCuboCoroa} mm </td>
+                            <td > ${comprimentoCuboPinhao} mm </td>
                         </tr>
 
                         <tr>
                             <td> Y </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${angYCoroa} mm </td>
+                            <td > ${angYPinhao} mm </td>
                         </tr>
                             
                         <tr>
                             <td> A </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${aCoroa} mm </td>
+                            <td > ${aPinhao} mm </td>
                         </tr>
 
                         <tr>
                             <td> G </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${gCoroa} mm </td>
+                            <td > ${gPinhao} mm </td>
                         </tr>
 
                         <tr>
                             <td> L </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
+                            <td > ${lCoroa} mm </td>
+                            <td > ${lPinhao} mm </td>
+                        </tr>
+
+                        <tr>
+                        <td><hr></td>
+                        <td ><hr></td>
+                        <td ><hr></td>
                         </tr>
 
                         <tr>
                             <td> Chaveta </td>
-                            <td >  </span> mm </td>
-                            <td >  </span> mm </td>
-                        </tr>
-
-                        <tr>
-                            <td><hr></td>
-                            <td ><hr></td>
-                            <td ><hr></td>
+                            <td > ${chavetaA} mm </td>
+                            <td > ${chavetaB} mm </td>
                         </tr>
             
                         <tr>
                             <td> B </td>
-                            <td >  mm </td>
+                            <td > ${angB} mm </td>
                         </tr>
             
                         <tr>
                             <td> Z </td>
-                            <td >  mm </td>
+                            <td > ${angZ} mm </td>
                         </tr>
             
                         <tr>
                             <td> C </td>
-                            <td >  mm </td>
+                            <td > ${C} mm </td>
                         </tr>
             
                         <tr>
                             <td> D </td>
-                            <td >  mm </td>
+                            <td > ${D} mm </td>
                         </tr>
             
                         <tr>
                             <td> H </td>
-                            <td >  mm </td>
+                            <td > ${H} mm </td>
                         </tr>
             
                         <tr>
                             <td> F </td>
-                            <td >  mm </td>
+                            <td > ${F} mm </td>
                         </tr>
             
                         <tr>
                             <td> W </td>
-                            <td >  mm </td>
+                            <td > ${W} mm </td>
                         </tr>
             
                         <tr>
                             <td> E </td>
-                            <td >  mm </td>
+                            <td > ${E} mm </td>
                         </tr>
                     </tbody>
                 </table>

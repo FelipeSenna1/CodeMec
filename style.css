@@ -49,14 +49,21 @@ fieldset{
    
   #statusDentes, #statusConica, #statusSemfim{
     display: none;
-    height: 550px;
-    width: 500px;
+    height:max-content;
+    width: max-content;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     margin:  auto;
+  }
+  table{
+    margin: 1em auto;
+    line-height: 1.8em;
+  }
+  td{ 
+    padding-left: 10px;
   }
 
 
