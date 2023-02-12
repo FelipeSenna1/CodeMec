@@ -101,14 +101,14 @@
                                 <td > ${diametroPrimitivoPinhao} mm </td>
                             </tr>
                             <tr>
-                                <td>Diametro interno :</td>
-                                <td > ${diametroInternoCoroa} mm </td>
-                                <td > ${diametroInternoPinhao} mm </td>
-                            </tr>
-                            <tr>
                                 <td>Diametro de base :</td>
                                 <td > ${diametroBaseCoroa} mm </td>
                                 <td > ${diametroBasePinhao} mm </td>
+                            </tr>
+                            <tr>
+                                <td>Diametro interno :</td>
+                                <td > ${diametroInternoCoroa} mm </td>
+                                <td > ${diametroInternoPinhao} mm </td>
                             </tr>
                             <tr>
                                 <td>Diametro do cubo :</td>
@@ -125,7 +125,10 @@
                                 <td><hr></td>
                                 <td><hr></td>
                             </tr>
-                            
+                            <tr>
+                                <td>Passo :</td>
+                                <td > ${passo} mm </td>
+                            </tr>
                             <tr>
                                 <td>Folga no pé do dente :</td>
                                 <td > ${folgaDente} mm </td>
@@ -258,28 +261,40 @@
                             <td > ${comprimentoCuboPinhao} mm </td>
                         </tr>
 
-                        <tr>
-                            <td> Y </td>
-                            <td > ${angYCoroa} mm </td>
-                            <td > ${angYPinhao} mm </td>
-                        </tr>
-                            
-                        <tr>
-                            <td> A </td>
-                            <td > ${aCoroa} mm </td>
-                            <td > ${aPinhao} mm </td>
-                        </tr>
-
-                        <tr>
-                            <td> G </td>
+                         <tr>
+                            <td> Geratriz (G)</td>
                             <td > ${gCoroa} mm </td>
                             <td > ${gPinhao} mm </td>
                         </tr>
 
                         <tr>
-                            <td> L </td>
+                            <td> Comp. do Dente (L) </td>
                             <td > ${lCoroa} mm </td>
                             <td > ${lPinhao} mm </td>
+                        </tr>
+
+                        <tr>
+                            <td> Y </td>
+                            <td > ${angYCoroa} ° </td>
+                            <td > ${angYPinhao} ° </td>
+                        </tr>
+                            
+                        <tr>
+                            <td> A </td>
+                            <td > ${aCoroa} ° </td>
+                            <td > ${aPinhao} ° </td>
+                        </tr>
+
+                        <tr>
+                            <td> Chaveta a </td>
+                            <td > ${chavetaA} mm </td>
+                            <td > ${chavetaB} mm </td>
+                        </tr>
+
+                        <tr>
+                            <td> Chaveta b </td>
+                            <td > ${chavetaA} mm </td>
+                            <td > ${chavetaB} mm </td>
                         </tr>
 
                         <tr>
@@ -289,29 +304,23 @@
                         </tr>
 
                         <tr>
-                            <td> Chaveta </td>
-                            <td > ${chavetaA} mm </td>
-                            <td > ${chavetaB} mm </td>
-                        </tr>
-            
-                        <tr>
                             <td> B </td>
-                            <td > ${angB} mm </td>
+                            <td > ${angB} ° </td>
                         </tr>
             
                         <tr>
                             <td> Z </td>
-                            <td > ${angZ} mm </td>
+                            <td > ${angZ} ° </td>
                         </tr>
             
                         <tr>
                             <td> C </td>
-                            <td > ${C} mm </td>
+                            <td > ${C} ° </td>
                         </tr>
             
                         <tr>
                             <td> D </td>
-                            <td > ${D} mm </td>
+                            <td > ${D} ° </td>
                         </tr>
             
                         <tr>
@@ -349,225 +358,71 @@
 
     if((N1_semfim.value != "") && (D2_semfim.value != "") && (N2_semfim.value != "") && (AngTeta_semfim.value != "") && (AngBeta_semfim.value != "") && (modulo_semfim.value != "")){
 
-           const SemFim = {
-             De: {
-               coroa: () => {
-                 De1_semfim.innerHTML = (
-                   (modulo_semfim.value /
-                     Math.sin(AngBeta_semfim.value * (Math.PI / 180))) *
-                     N1_semfim.value +
-                   2 * modulo_semfim.value
-                 ).toFixed(2)
-               },
-               parafuso: () => {
-                 De2_semfim.innerHTML = (
-                   parseInt(Dp2_semfim.innerHTML) +
-                   2 * modulo_semfim.value
-                 ).toFixed(2)
-               },
-             },
 
-             Dp: {
-               coroa: () => {
-                 Dp1_semfim.innerHTML = (
-                   Mc1_semfim.innerHTML * N1_semfim.value
-                 ).toFixed(2)
-               },
-               parafuso: () => {
-                 Dp2_semfim.innerHTML = (
-                   Mc2_semfim.innerHTML * N2_semfim.value
-                 ).toFixed(2)
-               },
-             },
+      const moduloCircuferencialCoroa = (modulo_semfim.value / Math.sin(AngBeta_semfim.value * (Math.PI / 180))).toFixed(2)
+      const moduloCircuferencialPinhao = (modulo_semfim.value / Math.cos(AngBeta_semfim.value * (Math.PI / 180))).toFixed(2)
 
-             Di: {
-               coroa: () => {
-                 Di1_semfim.innerHTML = (
-                   Dp1_semfim.innerHTML -
-                   modulo_semfim.value * 2.334
-                 ).toFixed(2)
-               },
-               parafuso: () => {
-                 Di2_semfim.innerHTML = (
-                   Dp2_semfim.innerHTML -
-                   2.334 * modulo_semfim.value
-                 ).toFixed(2)
-               },
-             },
+      const diametroPrimitivoCoroa = (moduloCircuferencialCoroa * N1_semfim.value).toFixed(2)
+      const diametroPrimitivoPinhao = (moduloCircuferencialPinhao * N2_semfim.value).toFixed(2)
 
-             Pc: {
-               coroa: () => {
-                 Pc2_semfim.innerHTML = (
-                   Mc2_semfim.innerHTML * Math.PI
-                 ).toFixed(2)
-               },
-               parafuso: () => {
-                 Pc1_semfim.innerHTML = (
-                   (modulo_semfim.value /
-                     Math.sin(AngBeta_semfim.value * (Math.PI / 180))) *
-                   Math.PI
-                 ).toFixed(2)
-               },
-             },
+      const diametroExternoCoroa = ((modulo_semfim.value / Math.sin(AngBeta_semfim.value * (Math.PI / 180))) * N1_semfim.value + 2 * modulo_semfim.value).toFixed(2)
+      const diametroExternoPinhao =  (parseInt(diametroPrimitivoPinhao) + 2 * modulo_semfim.value).toFixed(2)
 
-             L: {
-               coroa1: () => {
-                 L2_semfim.innerHTML = (8 * modulo_semfim.value).toFixed(2)
-               },
-               coroa: () => {
-                 L3_semfim.innerHTML = (8 * modulo_semfim.value * 0.6).toFixed(
-                   2
-                 )
-               },
-               parafuso: () => {
-                 L1_semfim.innerHTML = (
-                   2 *
-                   Ma_semfim.innerHTML *
-                   (1 + Math.sqrt(N2_semfim.value))
-                 ).toFixed(2)
-               },
-             },
+      const diametroInternoCoroa = (diametroPrimitivoCoroa - modulo_semfim.value * 2.334).toFixed(2)
+      const diametroInternoPinhao = (diametroPrimitivoPinhao - 2.334 * modulo_semfim.value).toFixed(2)
 
-             Mc: {
-               coroa: () => {
-                 Mc1_semfim.innerHTML = (
-                   modulo_semfim.value /
-                   Math.sin(AngBeta_semfim.value * (Math.PI / 180))
-                 ).toFixed(2)
-               },
-               parafuso: () => {
-                 Mc2_semfim.innerHTML = (
-                   modulo_semfim.value /
-                   Math.cos(AngBeta_semfim.value * (Math.PI / 180))
-                 ).toFixed(2)
-               },
-             },
+      const moduloAxialCoroa = (modulo_semfim.value / Math.cos(AngBeta_semfim.value * (Math.PI / 180))).toFixed(2)
+      const moduloAxialPinhao = (modulo_semfim.value / Math.sin(AngBeta_semfim.value * (Math.PI / 180))).toFixed(2)
 
-             Ma: {
-               coroa: () => {
-                 Ma_semfim.innerHTML = (
-                   modulo_semfim.value /
-                   Math.cos(AngBeta_semfim.value * (Math.PI / 180))
-                 ).toFixed(2)
-               },
-               parafuso: () => {
-                 Ma2_semfim.innerHTML = (
-                   modulo_semfim.value /
-                   Math.sin(AngBeta_semfim.value * (Math.PI / 180))
-                 ).toFixed(2)
-               },
-             },
+      const passoCircuferencialCoroa = (moduloCircuferencialPinhao * Math.PI).toFixed(2)
+      const passoCircuferencialPinhao = ((modulo_semfim.value / Math.sin(AngBeta_semfim.value * (Math.PI / 180))) *Math.PI).toFixed(2)
 
-             Pn: () => {
-               Pn_semfim.innerHTML = (modulo_semfim.value * Math.PI).toFixed(2)
-             },
+      //(L1)
+      const comprimentoRoscaParafuso = (2 * moduloAxialCoroa * (1 + Math.sqrt(N2_semfim.value))).toFixed(2)
+      //(L2)
+      const larguraCoroa = (8 * modulo_semfim.value).toFixed(2)
+      //(L3)
+      const espessuraCorpoEngrenagem = (8 * modulo_semfim.value * 0.6).toFixed(2)
 
-             Ph: () => {
-               Ph_semfim.innerHTML = (
-                 (modulo_semfim.value /
-                   Math.cos(AngBeta_semfim.value * (Math.PI / 180))) *
-                 Math.PI *
-                 N1_semfim.value
-               ).toFixed(2)
-             },
+      
 
-             Pa: () => {
-               Pa1_semfim.innerHTML = (
-                 (modulo_semfim.value /
-                   Math.cos(AngBeta_semfim.value * (Math.PI / 180))) *
-                 Math.PI
-               ).toFixed(2)
-             },
+      const passoNormalCoroa = (modulo_semfim.value * Math.PI).toFixed(2)
 
-             a: () => {
-               a_semfim.innerHTML = modulo_semfim.value
-             },
+      const passoHelicePinhao = ((modulo_semfim.value / Math.cos(AngBeta_semfim.value * (Math.PI / 180))) * Math.PI * N1_semfim.value).toFixed(2)
 
-             b: () => {
-               b_semfim.innerHTML = (1.167 * modulo_semfim.value).toFixed(2)
-             },
+      const passoAxialPinhao = ((modulo_semfim.value / Math.cos(AngBeta_semfim.value * (Math.PI / 180))) * Math.PI).toFixed(2)
 
-             h: () => {
-               h_semfim.innerHTML = (
-                 parseInt(modulo_semfim.value) +
-                 1.167 * modulo_semfim.value
-               ).toFixed(2)
-             },
+      const alturaCabeca = modulo_semfim.value
 
-             l: () => {
-               l_semfim.innerHTML = (0.167 * modulo_semfim.value).toFixed(2)
-             },
+      const alturaPe = (1.167 * modulo_semfim.value).toFixed(2)
 
-             E: () => {
-               E_semfim.innerHTML = (
-                 (modulo_semfim.value * Math.PI) /
-                 2
-               ).toFixed(2)
-             },
+      const alturaTotal = (parseInt(modulo_semfim.value) + 1.167 * modulo_semfim.value).toFixed(2)
 
-             Dc: () => {
-               Dc_semfim.innerHTML = ((D2_semfim.value - 5) / 2).toFixed(2)
-             },
+      const folgaPe = (0.167 * modulo_semfim.value).toFixed(2)
 
-             Cc: () => {
-               Cc_semfim.innerHTML = (D2_semfim.value * 1.5).toFixed(2)
-             },
+      const espessuraPinhao = ((modulo_semfim.value * Math.PI) / 2).toFixed(2)
 
-             Db: () => {
-               Db2_semfim.innerHTML = (
-                 Dp2_semfim.innerHTML *
-                 Math.cos(AngTeta_semfim.value * (Math.PI / 180))
-               ).toFixed(2)
-             },
+      const diametroCuboCoroa = ((D2_semfim.value - 5) * 2).toFixed(2)
 
-             Dem: () => {
-               Dem_semfim.innerHTML = (
-                 parseInt(Dp2_semfim.innerHTML) +
-                 3 * modulo_semfim.value
-               ).toFixed(2)
-             },
+      const comprimentoCubo = (D2_semfim.value * 1.5).toFixed(2)
 
-             Reg: () => {
-               reg_semfim.innerHTML = (
-                 I_semfim.innerHTML -
-                 Di2_semfim.innerHTML / 2
-               ).toFixed(2)
-             },
+      const diametroBaseCoroa = (diametroPrimitivoPinhao * Math.cos(AngTeta_semfim.value * (Math.PI / 180))).toFixed(2)
+      
+      const diametroExternoMaximo = (parseInt(diametroPrimitivoPinhao) + 3 * modulo_semfim.value).toFixed(2)
 
-             Rig: () => {
-               rig_semfim.innerHTML = (
-                 I_semfim.innerHTML -
-                 De2_semfim.innerHTML / 2
-               ).toFixed(2)
-             },
+      const distanciaCentros = ((moduloCircuferencialCoroa * N1_semfim.value + moduloCircuferencialPinhao * N2_semfim.value) / 2).toFixed(2)
 
-             I: () => {
-               I_semfim.innerHTML = (
-                 (Mc1_semfim.innerHTML * N1_semfim.value +
-                   Mc2_semfim.innerHTML * N2_semfim.value) /
-                 2
-               ).toFixed(2)
-             },
+      const raioExternoGarganta = (distanciaCentros - diametroInternoPinhao / 2).toFixed(2)
 
-             K: () => {
-               K_semfim.innerHTML = (6.5 * modulo_semfim.value).toFixed(2)
-             },
+      const raioInternoGarganta = (distanciaCentros - diametroExternoPinhao / 2).toFixed(2)
 
-             G: () => {
-               G_semfim.innerHTML = (
-                 (modulo_semfim.value * Math.PI) /
-                 2
-               ).toFixed(2)
-             },
+      const comprimentoFundo = (6.5 * modulo_semfim.value).toFixed(2)
 
-             s: () => {
-               s_semfim.innerHTML = (D2_semfim.value / 4).toFixed(2)
-             },
+      const reforcoDente = ((modulo_semfim.value * Math.PI) / 2).toFixed(2)
 
-             t: () => {
-               t_semfim.innerHTML = (D2_semfim.value / 4 / 2).toFixed(2)
-             },
-           }
+      const larguraChaveta = (D2_semfim.value / 4).toFixed(2)
+
+      const profundidadeChaveta = (D2_semfim.value / 4 / 2).toFixed(2)
 
         reusltado_semfim.innerHTML = `
             <div class="tableFlex">  
@@ -579,80 +434,88 @@
                             </tr>
                             
                             <tr>
-                                <td> Ma </td>
-                                <td >  mm </td>
+                                <td> Modulo Axial </td>
+                                <td > ${moduloAxialCoroa} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Mc </td>
-                                <td >  mm </td>
-                            </tr>
-                            
-                            
-                            <tr>
-                                <td> Dp </td>
-                                <td >  mm </td>
+                                <td> Modulo circunferencial </td>
+                                <td > ${moduloCircuferencialCoroa} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> De </td>
-                                <td >  mm </td>
-                            </tr>
-                            
-                            
-                            <tr>
-                                <td> Di </td>
-                                <td >  mm </td>
+                                <td> Diametro Primitivo </td>
+                                <td > ${diametroPrimitivoCoroa} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Pc </td>
-                                <td >  mm </td>
+                                <td> Diametro Externo </td>
+                                <td > ${diametroExternoCoroa} mm </td>
                             </tr>
-
+                            
                             <tr>
-                                <td> Pn </td>
-                                <td >  mm </td>
+                                <td> Diametro Base </td>
+                                <td > ${diametroBaseCoroa} mm </td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Diametro Interno </td>
+                                <td > ${diametroInternoCoroa} mm </td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Passo Circuferencial </td>
+                                <td > ${passoCircuferencialCoroa} mm </td>
                             </tr>
 
                             <tr>
-                                <td> Pa </td>
-                                <td >  mm </td>
+                                <td> Passo Normal </td>
+                                <td > ${passoNormalCoroa}  mm </td>
+                            </tr>
+
+                            <tr>
+                                <td> Passo Axial </td>
+                                <td > ${passoAxialPinhao} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Ph </td>
-                                <td >  mm </td>
+                                <td> Passo Helice </td>
+                                <td > ${passoHelicePinhao} mm </td>
                             </tr>
                             
                             <tr>
                                 <td> Altura da Cabeça do dente </td>
-                                <td >  mm </td>
+                                <td > ${alturaCabeca} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> L1 </td>
-                                <td >  mm </td>
+                                <td> Comp. Rosca (L1) </td>
+                                <td > ${comprimentoRoscaParafuso} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> b </td>
-                                <td >  mm </td>
+                                <td> Altura da Cabeça </td>
+                                <td > ${alturaCabeca} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> h </td>
-                                <td >  mm </td>
+                                <td> Altura do Pè </td>
+                                <td > ${alturaPe} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> e </td>
-                                <td >  mm </td>
+                                <td> Altura Total </td>
+                                <td > ${alturaTotal} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> E </td>
-                                <td >  mm </td>
+                                <td> Folga do Pé </td>
+                                <td > ${folgaPe} mm </td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Espessura do Dente </td>
+                                <td > ${espessuraPinhao} mm </td>
                             </tr>
                         </tbody>
                     </table>
@@ -666,98 +529,92 @@
                             
                             <tr>
                                 <td> Modulo axial </td>
-                                <td >  mm </td>
+                                <td > ${moduloAxialPinhao} mm </td>
                             </tr>
                             
                             <tr>
                                 <td> Modulo circunferencial </td>
-                                <td >  mm </td>
+                                <td > ${moduloCircuferencialPinhao} mm </td>
                             </tr>
                             
                             <tr>
                                 <td> Diametro Primitivo </td>
-                                <td >  mm </td>
+                                <td > ${diametroPrimitivoPinhao} mm </td>
                             </tr>
                             
                             <tr>
                                 <td> Diametro Externo </td>
-                                <td >  mm </td>
+                                <td > ${diametroExternoPinhao} mm </td>
                             </tr>
                             
                             <tr>
                                 <td> Diametro Interno </td>
-                                <td >  mm </td>
+                                <td > ${diametroInternoPinhao} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Db </td>
-                                <td >  mm </td>
+                                <td> Diametro Externo Maximo </td>
+                                <td > ${diametroExternoMaximo} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Dem </td>
-                                <td >  mm </td>
+                                <td> Diamtro Cubo </td>
+                                <td > ${diametroCuboCoroa} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Dc </td>
-                                <td >  mm </td>
+                                <td> Comp. Cubo </td>
+                                <td > ${comprimentoCubo} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Cc </td>
-                                <td >  mm </td>
+                                <td> Largura Coroa (L2) </td>
+                                <td > ${larguraCoroa} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> L2 </td>
-                                <td >  mm </td>
+                                <td> Espessura Corpo (L3) </td>
+                                <td > ${espessuraCorpoEngrenagem} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> L3 </td>
-                                <td >  mm </td>
+                                <td> Raio Externo Garganta </td>
+                                <td > ${raioExternoGarganta} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> reg </td>
-                                <td >  mm </td>
+                                <td> Raio Interno Garganta </td>
+                                <td > ${raioInternoGarganta} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> rig </td>
-                                <td >  mm </td>
+                                <td> Passo Circuferencial </td>
+                                <td > ${passoCircuferencialPinhao} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> Pc </td>
-                                <td >  mm </td>
+                                <td> Comp. do Fundo </td>
+                                <td > ${comprimentoFundo} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> K </td>
-                                <td >  mm </td>
+                                <td> Reforço do Dente </td>
+                                <td > ${reforcoDente} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> G </td>
-                                <td >  mm </td>
-                            </tr>
-                            
-                            
-                            <tr>
-                                <td> I </td>
-                                <td >  mm </td>
+                                <td> Distancia entre Centros </td>
+                                <td > ${distanciaCentros}  mm </td>
                             </tr>
                             
                             <tr>
-                                <td> s </td>
-                                <td >  mm </td>
+                                <td> Largura Chaveta </td>
+                                <td > ${larguraChaveta} mm </td>
                             </tr>
                             
                             <tr>
-                                <td> t </td>
-                                <td >  mm </td>
+                                <td> Profundiade Chaveta </td>
+                                <td > ${profundidadeChaveta} mm </td>
                             </tr>
                         </tbody>
                     </table>

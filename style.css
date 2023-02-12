@@ -27,8 +27,9 @@ fieldset{
 }
 .tableFlex{
   display: flex;
-  justify-content: space-around;
-  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* gap: 20px; */
 }
 
 #dentes, #conica, #semfim, #about {
@@ -592,4 +593,7 @@ fieldset{
   .container_dados .inputGroup input{
     width: 90px;
   }
+   #statusDentes, #statusConica, #statusSemfim{
+    font-size: 75%;
+   }
 }
